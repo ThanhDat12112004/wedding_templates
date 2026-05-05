@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Trang giới thiệu 10 mẫu thiệp cưới online — Dương Thành Đạt & Lê Nguyên Thảo. Mở từng mẫu trong tab mới.">
+  <title>Thiệp cưới — 10 mẫu xem thử</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b5a6b'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-a: #f4eef5;
+      --bg-b: #faf8f5;
+      --bg-c: #ebeaf7;
+      --ink: #2a1f28;
+      --muted: rgba(42, 31, 40, 0.72);
+      --accent: #8b5a6b;
+      --accent-hover: #744a59;
+      --card: rgba(255, 255, 255, 0.88);
+      --shadow: 0 14px 40px rgba(70, 40, 55, 0.1);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(148deg, var(--bg-a) 0%, var(--bg-b) 45%, var(--bg-c) 100%);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem) 3rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: clamp(2rem, 5vw, 3rem);
+    }
+
+    header h1 {
+      margin: 0 0 0.65rem;
+      font-size: clamp(1.65rem, 4vw, 2.25rem);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    header .names {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    header p {
+      margin: 0 auto;
+      max-width: 40rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid rgba(139, 90, 107, 0.15);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 48px rgba(70, 40, 55, 0.14);
+    }
+
+    .card-visual {
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2rem, 6vw, 2.75rem);
+      position: relative;
+    }
+
+    .card-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.05));
+      pointer-events: none;
+    }
+
+    .card:nth-child(1) .card-visual { background: linear-gradient(135deg, #ede4f5, #faf5ef); }
+    .card:nth-child(2) .card-visual { background: linear-gradient(135deg, #f5e8ec, #eef3fb); }
+    .card:nth-child(3) .card-visual { background: linear-gradient(135deg, #e8eef8, #f8f0ea); }
+    .card:nth-child(4) .card-visual { background: linear-gradient(135deg, #f0e8f4, #ecf6f1); }
+    .card:nth-child(5) .card-visual { background: linear-gradient(135deg, #fceef1, #e9eef9); }
+    .card:nth-child(6) .card-visual { background: linear-gradient(135deg, #eaeaf7, #fdf6f2); }
+    .card:nth-child(7) .card-visual { background: linear-gradient(135deg, #f5f0eb, #e8f2fa); }
+    .card:nth-child(8) .card-visual { background: linear-gradient(135deg, #f3ecf5, #eef8f4); }
+    .card:nth-child(9) .card-visual { background: linear-gradient(135deg, #fdf5f0, #ebe9f7); }
+    .card:nth-child(10) .card-visual { background: linear-gradient(135deg, #eef4fb, #faf3f6); }
+
+    .card-body {
+      padding: 1.15rem 1.25rem 1.35rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      background: rgba(139, 90, 107, 0.12);
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+      width: fit-content;
+    }
+
+    .card h2 {
+      margin: 0 0 0.45rem;
+      font-size: 1.15rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      margin: 0 0 1rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .card a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      width: 100%;
+      text-align: center;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .card a:hover {
+      background: var(--accent-hover);
+    }
+
+    .card a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Thiệp cưới online — bộ 10 mẫu</h1>
+      <p class="names">Dương Thành Đạt &amp; Lê Nguyên Thảo</p>
+      <p>
+        Chọn một mẫu bên dưới để mở thiệp trong tab mới. Các bản xem thử đã được chỉnh viewport cho điện thoại, đổi tên, tông màu nhẹ và ẩn phần branding / liên kết nhà cung cấp.
+      </p>
+    </header>
+
+    <main class="grid" aria-label="Danh sách mẫu thiệp">
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">①</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 1</span>
+          <h2>Đỏ vàng — cổ điển</h2>
+          <p>Tông đỏ vàng, typography ấm; phù hợp thiệp truyền thống.</p>
+          <a href="./template_1.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">②</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 2</span>
+          <h2>Đỏ vàng — biến thể</h2>
+          <p>Cùng phong cách với mẫu 1, bố cục và chi tiết khác một chút.</p>
+          <a href="./template_2.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">③</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 3</span>
+          <h2>Layout dài</h2>
+          <p>Nhiều khối nội dung, phù hợp thiệp kể chuyện hoặc album.</p>
+          <a href="./template_3.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">④</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 4</span>
+          <h2>Phong cách hiển thị khác</h2>
+          <p>So sánh nhanh với các mẫu còn lại khi chọn theo sở thích.</p>
+          <a href="./template_4.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">⑤</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 5</span>
+          <h2>Mẫu gọn</h2>
+          <p>Điểm khởi đầu gọn nhẹ trước khi thay ảnh và chữ chi tiết.</p>
+          <a href="./template_5.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">⑥</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 6</span>
+          <h2>Đỏ mộc nâu</h2>
+          <p>Tông đỏ nâu, gần với thiệp truyền thống có nền ấm.</p>
+          <a href="./template_6.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">⑦</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 7</span>
+          <h2>Bố cục rộng</h2>
+          <p>Phù hợp khi cần nhiều ảnh hoặc đoạn văn dài.</p>
+          <a href="./template_7.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">⑧</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 8</span>
+          <h2>Biến thể trình bày</h2>
+          <p>Một lựa chọn khác trong cùng bộ để duyệt nhanh.</p>
+          <a href="./template_8.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">⑨</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 9</span>
+          <h2>Nhịp chữ đặc trưng</h2>
+          <p>Typography và khối nội dung khác các mẫu trước.</p>
+          <a href="./template_9.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual" aria-hidden="true">⑩</div>
+        <div class="card-body">
+          <span class="badge">Mẫu 10</span>
+          <h2>Be sữa / pastel</h2>
+          <p>Tông nhẹ, phù hợp nếu bạn thích giao diện dịu mắt.</p>
+          <a href="./template_10.html" target="_blank" rel="noopener">Mở thiệp</a>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      Mở file <strong>index.html</strong> bằng trình duyệt (kéo thả hoặc “Open with”) để duyệt danh sách khi làm việc offline.
+    </footer>
+  </div>
+</body>
+</html>
