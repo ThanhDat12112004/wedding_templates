@@ -27,6 +27,25 @@ body {
 .pageview {
   filter: hue-rotate(var(--wed-hue, 12deg)) saturate(1.07) contrast(1.03);
 }
+
+/* Viewport khóa zoom; tránh Safari đổi cỡ chữ tự ý */
+html,body{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+/* Căn thiệp giữa màn hình khi meta co theo CW=420 */
+@media screen and (max-width:767px){
+  body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .pageview{
+    margin-left:auto !important;
+    margin-right:auto !important;
+    position:relative;
+  }
+}
 </style>
 <style id="wedding-extra-hide">
 /* Tracking pixel nhà cung cấp */
@@ -47,24 +66,57 @@ img[src*="page_view.gif"] {
     <meta name="description" content="">
         <script type="text/javascript">
 (function(){
-  var CW=420,DW=960;
+  var CW=420,DW=960,BP=768;
+  var lastContent=null,lastBucket=null,appliedMobile=false;
+  function readW(){
+    var ow=window.outerWidth|0;
+    if(ow>=300&&ow<=1100)return ow;
+    var iw=window.innerWidth|0;
+    if(iw>=300&&iw<=1100)return iw;
+    var sw=(window.screen&&window.screen.width)|0;
+    if(sw>=300&&sw<=1100)return sw;
+    return iw||document.documentElement.clientWidth||CW;
+  }
   function applyViewport(){
-    var w=window.innerWidth||document.documentElement.clientWidth||CW;
-    var mobile=w<768;
+    var w=readW(),mobile=w<BP,bucket=mobile?"m":"d";
     window.DISPLAY=mobile?"mobile":"desktop";
-    var c=mobile
-      ? ("width="+CW+", user-scalable=no, initial-scale="+(w/CW)+", minimum-scale="+(w/CW)+", maximum-scale="+(w/CW)+", viewport-fit=cover")
-      : ("width="+DW+", user-scalable=no, initial-scale=1.0");
+    if(bucket==="m"&&appliedMobile&&bucket===lastBucket)return;
+    var c;
+    if(mobile){
+      var s=Math.max(0.28,Math.min(2.85,Math.round((w/CW)*100)/100));
+      c="width="+CW+", initial-scale="+s+", minimum-scale="+s+", maximum-scale="+s+", user-scalable=no, viewport-fit=cover";
+    }else{
+      c="width="+DW+", initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no";
+    }
+    if(c===lastContent){lastBucket=bucket;appliedMobile=(bucket==="m");return;}
+    lastContent=c;
     var nodes=document.head.querySelectorAll("meta[name=viewport]");
     for(var i=0;i<nodes.length;i++)nodes[i].remove();
     var m=document.createElement("meta");
     m.name="viewport";
     m.setAttribute("content",c);
     document.head.insertBefore(m,document.head.firstChild);
+    lastBucket=bucket;
+    appliedMobile=(bucket==="m");
+    try{window.scrollTo(0,0);document.documentElement.scrollLeft=0;document.body.scrollLeft=0;}catch(e){}
+  }
+  function onResize(){
+    clearTimeout(window.__wedVp);
+    window.__wedVp=setTimeout(function(){
+      var b=(readW()<BP)?"m":"d";
+      if(b!==lastBucket){lastContent=null;appliedMobile=false;applyViewport();}
+    },400);
   }
   applyViewport();
-  window.addEventListener("resize",function(){clearTimeout(window.__wedVp);window.__wedVp=setTimeout(applyViewport,120);});
-  window.addEventListener("orientationchange",function(){setTimeout(applyViewport,200);});
+  window.addEventListener("resize",onResize,{passive:true});
+  window.addEventListener("orientationchange",function(){
+    appliedMobile=false;
+    lastContent=null;
+    setTimeout(function(){
+      applyViewport();
+      try{window.scrollTo(0,0);document.documentElement.scrollLeft=0;document.body.scrollLeft=0;}catch(e){}
+    },360);
+  });
 })();
     </script>
     <script async="" src="./template_4_files/app.js"></script>
