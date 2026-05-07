@@ -50,346 +50,133 @@
         opacity: 1;
         transform: scale(1);
       }
+      /* ── Intro: 2 cánh cửa full-screen mở ra hiện thiệp ── */
+      body.intro-locked {
+        overflow: hidden;
+        height: 100%;
+        touch-action: none;
+      }
       .envelope-intro {
         position: fixed;
         inset: 0;
         z-index: 9999;
-        background: radial-gradient(circle at 50% 30%, #f9f2e7 0%, #eadccd 58%, #d8c6b7 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        pointer-events: auto;
+        background: transparent;
+        overflow: hidden;
         transition:
-          opacity 0.7s ease,
-          visibility 0.7s ease;
-        animation: introFadeIn 0.6s ease both;
+          opacity 0.9s ease,
+          visibility 0.9s ease;
+        animation: introFadeIn 0.4s ease both;
       }
       .envelope-intro.done {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
       }
-      .envelope-stage {
-        width: min(92vw, 460px);
-        aspect-ratio: 4/3;
-        position: relative;
-        perspective: 1700px;
-        transform-style: preserve-3d;
-      }
-      .intro-card {
-        position: absolute;
-        inset: 9% 8%;
-        border-radius: 18px;
-        transform-style: preserve-3d;
-        transform: rotateX(12deg) rotateZ(-1deg);
-        filter: drop-shadow(0 30px 42px rgba(70, 30, 20, 0.28));
-        animation: introCardGrow 3.4s cubic-bezier(0.22, 0.7, 0.16, 1) forwards;
-      }
-      .intro-card::before {
-        content: '';
-        position: absolute;
-        left: 4%;
-        right: 4%;
-        bottom: -18px;
-        height: 30px;
-        background: radial-gradient(
-          ellipse at center,
-          rgba(65, 30, 20, 0.32) 0%,
-          rgba(65, 30, 20, 0) 72%
-        );
-        transform: translateZ(-20px);
-      }
-      .intro-inside {
+      .door-pair {
         position: absolute;
         inset: 0;
-        border-radius: 18px;
-        background:
-          radial-gradient(
-            circle at 50% 48%,
-            rgba(255, 255, 255, 0.22) 0%,
-            rgba(255, 255, 255, 0.06) 38%,
-            transparent 62%
-          ),
-          linear-gradient(145deg, #a12d37 0%, #84202b 52%, #6f1824 100%);
-        border: 1px solid rgba(201, 169, 110, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        color: #7a1f2b;
-        transform: translateZ(1px);
+        perspective: clamp(1400px, 180vw, 2800px);
+        perspective-origin: 50% 50%;
       }
-      .intro-preview {
-        width: 100%;
-        height: 100%;
-        border-radius: 17px;
-        overflow: hidden;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        transform-origin: 50% 12%;
-        animation: previewUnroll 3.4s cubic-bezier(0.22, 0.7, 0.16, 1) forwards;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .intro-preview-top {
-        width: auto;
-        height: auto;
-        margin: 0;
-        background: none;
-        border-radius: 0;
-        font-family: 'Playfair Display', serif;
-        font-size: 30px;
-        letter-spacing: 6px;
-        text-transform: uppercase;
-        color: #7a1f2b;
-        text-align: center;
-      }
-      .intro-preview-bar {
-        display: none;
-      }
-      .intro-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 34px;
-        font-weight: 700;
-        letter-spacing: 1px;
-      }
-      .intro-sub {
-        margin-top: 8px;
-        font-size: 12px;
-        letter-spacing: 4px;
-        color: rgba(122, 31, 43, 0.7);
-        text-transform: uppercase;
-      }
-      .intro-cover {
-        position: absolute;
-        inset: 0;
-        border-radius: 18px;
-        transform-style: preserve-3d;
-      }
-      .door {
+      .door-panel {
         position: absolute;
         top: 0;
         bottom: 0;
         width: 50%;
-        background: linear-gradient(145deg, #9f2a33 0%, #7e1b25 100%);
-        border: 1px solid rgba(201, 169, 110, 0.55);
-        box-shadow:
-          inset 0 0 0 2px rgba(230, 190, 120, 0.2),
-          inset 0 0 26px rgba(255, 255, 255, 0.06);
         overflow: hidden;
+        background: #2b0610;
+        will-change: transform;
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.45);
+        transition: transform 1.7s cubic-bezier(0.55, 0, 0.18, 1);
       }
-      .door.left {
+      .door-panel--left {
         left: 0;
-        border-radius: 18px 0 0 18px;
         transform-origin: left center;
-        animation: leftDoorOpen 3.4s cubic-bezier(0.22, 0.7, 0.16, 1) forwards;
+        transform: translate3d(0, 0, 0);
+        box-shadow: 6px 0 24px rgba(0, 0, 0, 0.45);
       }
-      .door.right {
+      .door-panel--right {
         right: 0;
-        border-radius: 0 18px 18px 0;
         transform-origin: right center;
-        animation: rightDoorOpen 3.4s cubic-bezier(0.22, 0.7, 0.16, 1) forwards;
+        transform: translate3d(0, 0, 0);
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.45);
       }
-      .door::before {
-        content: '';
+      .envelope-intro.opening .door-panel--left {
+        transform: translate3d(-101%, 0, 0);
+      }
+      .envelope-intro.opening .door-panel--right {
+        transform: translate3d(101%, 0, 0);
+      }
+      .door-panel__img {
         position: absolute;
-        inset: 12px;
-        border: 1px solid rgba(245, 220, 175, 0.45);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
       }
-      .door::after {
-        content: '';
+      .door-panel--left .door-panel__img {
+        object-position: right center;
+      }
+      .door-panel--right .door-panel__img {
+        object-position: left center;
+      }
+      .door-seam {
         position: absolute;
-        width: 74px;
-        height: 74px;
-        border: 2px solid rgba(245, 220, 175, 0.5);
-        opacity: 0.75;
-      }
-      .door.left::after {
-        left: 16px;
-        top: 16px;
-        border-right: none;
-        border-bottom: none;
-      }
-      .door.right::after {
-        right: 16px;
-        bottom: 16px;
-        border-left: none;
-        border-top: none;
-      }
-      .door-center {
-        position: absolute;
+        top: 0;
+        bottom: 0;
         left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 132px;
-        height: 132px;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle at 35% 30%,
-          rgba(255, 255, 255, 0.22) 0%,
-          rgba(156, 47, 60, 0.18) 45%,
-          rgba(122, 31, 43, 0.28) 100%
-        );
-        border: 3px solid rgba(240, 206, 140, 0.78);
-        box-shadow: 0 0 0 4px rgba(240, 206, 140, 0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #f5dfb6;
-        font-size: 54px;
-        font-weight: 700;
-        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-        animation: logoHideOnOpen 3.4s ease forwards;
+        width: 2px;
+        margin-left: -1px;
+        background: linear-gradient(180deg,
+          rgba(241, 196, 106, 0) 0%,
+          rgba(241, 196, 106, 0.55) 12%,
+          rgba(241, 196, 106, 0.85) 50%,
+          rgba(241, 196, 106, 0.55) 88%,
+          rgba(241, 196, 106, 0) 100%);
+        box-shadow: 0 0 18px rgba(255, 200, 120, 0.45);
+        z-index: 5;
+        opacity: 0.9;
+        transition: opacity 0.6s ease;
       }
-      .tassel {
-        position: absolute;
-        left: 50%;
-        bottom: 56px;
-        transform: translateX(-50%);
-        color: #f2d6a2;
-        font-size: 28px;
-        line-height: 1;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      .envelope-intro.opening .door-seam {
+        opacity: 0;
       }
       .intro-skip {
         position: absolute;
-        bottom: 28px;
+        bottom: clamp(18px, 4vh, 38px);
         left: 50%;
         transform: translateX(-50%);
+        font-family: 'Playfair Display', serif;
         font-size: 11px;
         letter-spacing: 3px;
         text-transform: uppercase;
-        color: rgba(122, 31, 43, 0.72);
+        color: rgba(241, 196, 106, 0.85);
         cursor: pointer;
+        z-index: 6;
+        padding: 8px 14px;
+        border: 1px solid rgba(241, 196, 106, 0.4);
+        border-radius: 999px;
+        background: rgba(20, 4, 8, 0.4);
+        backdrop-filter: blur(6px);
+        transition:
+          opacity 0.5s ease,
+          background 0.3s ease;
       }
-      .firecracker {
-        position: absolute;
-        top: 6%;
-        width: 42px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        transform-origin: top center;
-        animation: crackerSwing 2.6s ease-in-out infinite;
-      }
-      .firecracker.left {
-        left: -8px;
-      }
-      .firecracker.right {
-        right: -8px;
-        animation-delay: 0.4s;
-      }
-      .cracker-rope {
-        width: 2px;
-        height: 44px;
-        background: linear-gradient(#d8b36f, #b98a44);
-      }
-      .cracker-body {
-        width: 24px;
-        height: 18px;
-        border-radius: 5px;
-        background: linear-gradient(180deg, #b73644 0%, #7f1b27 100%);
-        border: 1px solid rgba(232, 203, 150, 0.55);
-        box-shadow: 0 2px 8px rgba(70, 20, 20, 0.25);
-      }
-      .cracker-tail {
-        width: 8px;
-        height: 14px;
-        border-radius: 0 0 8px 8px;
-        background: linear-gradient(180deg, #f2d8a0 0%, #d2a85d 100%);
-      }
-      @keyframes crackerSwing {
-        0%,
-        100% {
-          transform: rotate(-2deg);
-        }
-        50% {
-          transform: rotate(2deg);
-        }
-      }
-      @keyframes leftDoorOpen {
-        0%,
-        30% {
-          transform: rotateY(0deg);
-        }
-        55% {
-          transform: rotateY(-24deg);
-        }
-        78% {
-          transform: rotateY(-92deg);
-        }
-        100% {
-          transform: rotateY(-104deg);
-        }
-      }
-      @keyframes rightDoorOpen {
-        0%,
-        30% {
-          transform: rotateY(0deg);
-        }
-        55% {
-          transform: rotateY(24deg);
-        }
-        78% {
-          transform: rotateY(92deg);
-        }
-        100% {
-          transform: rotateY(104deg);
-        }
-      }
-      @keyframes logoHideOnOpen {
-        0%,
-        34% {
-          opacity: 1;
-          transform: translate(-50%, -50%) scale(1);
-        }
-        48%,
-        100% {
-          opacity: 0;
-          transform: translate(-50%, -50%) scale(0.92);
-        }
+      .envelope-intro.opening .intro-skip {
+        opacity: 0;
+        pointer-events: none;
       }
       @keyframes introFadeIn {
         from {
           opacity: 0;
         }
         to {
-          opacity: 1;
-        }
-      }
-      @keyframes introCardGrow {
-        0%,
-        70% {
-          transform: rotateX(12deg) rotateZ(-1deg) scale(1);
-        }
-        82% {
-          transform: rotateX(8deg) rotateZ(-0.6deg) scale(1.06);
-        }
-        92% {
-          transform: rotateX(4deg) rotateZ(-0.2deg) scale(1.12);
-        }
-        100% {
-          transform: rotateX(0deg) rotateZ(0deg) scale(1.16);
-        }
-      }
-      @keyframes previewUnroll {
-        0%,
-        42% {
-          transform: translateY(36%) rotateX(84deg) scale(0.72);
-          opacity: 0;
-        }
-        62% {
-          transform: translateY(10%) rotateX(28deg) scale(0.88);
-          opacity: 1;
-        }
-        78% {
-          transform: translateY(0) rotateX(8deg) scale(0.96);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(0) rotateX(0deg) scale(1);
           opacity: 1;
         }
       }
@@ -2234,40 +2021,17 @@
     </style>
   </head>
   <body>
-    <div class="envelope-intro" id="envelope-intro" onclick="skipIntro()">
-      <div class="envelope-stage">
-        <div class="firecracker left">
-          <div class="cracker-rope"></div>
-          <div class="cracker-body"></div>
-          <div class="cracker-tail"></div>
-          <div class="cracker-body"></div>
-          <div class="cracker-tail"></div>
-          <div class="cracker-body"></div>
-          <div class="cracker-tail"></div>
+    <div class="envelope-intro" id="envelope-intro">
+      <div class="door-pair">
+        <div class="door-panel door-panel--left">
+          <img src="left.PNG" alt="" class="door-panel__img" decoding="async">
         </div>
-        <div class="firecracker right">
-          <div class="cracker-rope"></div>
-          <div class="cracker-body"></div>
-          <div class="cracker-tail"></div>
-          <div class="cracker-body"></div>
-          <div class="cracker-tail"></div>
-          <div class="cracker-body"></div>
-          <div class="cracker-tail"></div>
+        <div class="door-panel door-panel--right">
+          <img src="right.PNG" alt="" class="door-panel__img" decoding="async">
         </div>
-        <div class="intro-card">
-          <div class="intro-inside">
-            <div class="intro-preview">
-              <div class="intro-preview-top">10/05/2026</div>
-            </div>
-          </div>
-          <div class="intro-cover">
-            <div class="door left"></div>
-            <div class="door right"></div>
-            <div class="door-center">囍</div>
-          </div>
-        </div>
+        <span class="door-seam" aria-hidden="true"></span>
       </div>
-      <div class="intro-skip">Bỏ qua</div>
+      <div class="intro-skip" onclick="skipIntro()">Mở thiệp</div>
     </div>
     <div class="card">
       <!-- HERO -->
@@ -2752,15 +2516,26 @@
         document.getElementById('wauthor').value = '';
         document.getElementById('wtext').value = '';
       }
+      var __introOpened = false;
       function skipIntro() {
+        if (__introOpened) return;
+        __introOpened = true;
+        var intro = document.getElementById('envelope-intro');
+        if (!intro) return;
+        intro.classList.add('opening');
         document.body.classList.add('intro-done');
-        setTimeout(() => {
-          document.getElementById('envelope-intro').classList.add('done');
-          startMainAnimations();
-        }, 280);
+        document.body.classList.remove('intro-locked');
+        if (typeof startMainAnimations === 'function') startMainAnimations();
+        setTimeout(function () {
+          intro.classList.add('done');
+        }, 1500);
+        setTimeout(function () {
+          if (intro.parentNode) intro.parentNode.removeChild(intro);
+        }, 2500);
       }
-      window.addEventListener('load', () => {
-        setTimeout(skipIntro, 3600);
+      window.addEventListener('load', function () {
+        document.body.classList.add('intro-locked');
+        setTimeout(skipIntro, 900);
       });
 
       function splitToChars(target, cls) {
